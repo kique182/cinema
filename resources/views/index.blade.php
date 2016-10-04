@@ -1,6 +1,8 @@
 @extends ('layouts.principal')
 
 @section ('content')
+    @include('alerts.errors')
+    @include('alerts.request')
 <div class="header">
     <div class="top-header">
         <div class="logo">
@@ -17,7 +19,7 @@
     </div>
     <div class="header-info">
         <h1>BIG HERO 6</h1>
-        {!!Form::open(['route'=>'usuario.store', 'method'=>'POST'])!!}
+        {!!Form::open(['route'=>'log.store', 'method'=>'POST'])!!}
         <div class="form-group">
             {!!Form::label('email','Correo:')!!}
             {!!Form::email('email',null,['class'=>'form-control', 'placeholder'=>'Ingresa tu correo'])!!}
