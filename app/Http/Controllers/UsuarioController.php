@@ -20,7 +20,7 @@ class UsuarioController extends Controller {
 	 */
 	public function index()
 	{
-	    $users=\Cinema\User::All();
+	    $users=\Cinema\User::paginate(2);
 		return view('usuario.index',compact('users'));
 	}
 
@@ -96,7 +96,8 @@ class UsuarioController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		\Cinema\User::destroy($id);
+        $user=\Cinema\User::find($id);
+        $user->delete();
         Session::flash('message','Usuario eliminado correctamente');
         return redirect('/usuario');
 	}
