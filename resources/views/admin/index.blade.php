@@ -1,3 +1,4 @@
 @extends('layouts.admin')
 @section('content')
-@endsection
+    @include('alerts.errors')
+@stop
