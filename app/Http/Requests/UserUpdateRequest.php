@@ -4,7 +4,7 @@ namespace Cinema\Http\Requests;
 
 use Cinema\Http\Requests\Request;
 
-class UserCreateRequest extends Request
+class UserUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class UserCreateRequest extends Request
     public function rules()
     {
         return [
-
+            'name'=>'required',
+            'email'=>'required',
         ];
     }
 }
