@@ -6,14 +6,26 @@ use Cinema\Http\Requests\UserUpdateRequest;
 
 
 use Cinema\Http\Controllers\Controller;
+use Cinema\User;
 use Session;
 use Redirect;
+use Illuminate\Routing\Route;
 
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller {
 
-	/**
+    public function __construct()
+    {
+        $this->beforeFilter('@find',['only'=>['edit','update','destroy']]);
+    }
+
+    public function find(Route $route)
+    {
+        $this->user=User::find($route->getParameter('usuario'));
+    }
+
+    /**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
@@ -69,8 +81,7 @@ class UsuarioController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$user=\Cinema\User::find($id);
-        return view('usuario.edit',['user'=>$user]);
+        return view('usuario.edit',['user'=>$this->user]);
 	}
 
 	/**
@@ -81,9 +92,8 @@ class UsuarioController extends Controller {
 	 */
 	public function update($id, UserUpdateRequest $request)
 	{
-		$user=\Cinema\User::find($id);
-        $user->fill($request->all());
-        $user->save();
+        $this->user->fill($request->all());
+        $this->user->save();
         Session::flash('message','Usuario actualizado correctamente');
         return Redirect::to('/usuario');
 	}
@@ -96,8 +106,7 @@ class UsuarioController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        $user=\Cinema\User::find($id);
-        $user->delete();
+        $this->user->delete();
         Session::flash('message','Usuario eliminado correctamente');
         return redirect('/usuario');
 	}
