@@ -4,6 +4,8 @@ use Cinema\Http\Requests;
 use Cinema\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Cinema\Genre;
+use Cinema\Movie;
 
 class MovieController extends Controller {
 
@@ -24,7 +26,8 @@ class MovieController extends Controller {
 	 */
 	public function create()
 	{
-		return "aqui seria el formulario";
+        $genres = Genre::lists('genre', 'id');
+        return view('pelicula.create',compact('genres'));
 	}
 
 	/**
@@ -32,9 +35,10 @@ class MovieController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		Movie::create($request->all());
+        return "listo";
 	}
 
 	/**
