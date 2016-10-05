@@ -7,9 +7,24 @@ use Illuminate\Http\Request;
 use Cinema\Http\Requests;
 use Cinema\Http\Controllers\Controller;
 use Cinema\Genre;
+use Session;
+use Redirect;
+use Illuminate\Routing\Route;
 
 class GeneroController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+        $this->beforeFilter('@find',['only'=>['edit','update','destroy']]);
+    }
+
+    public function find(Route $route)
+    {
+        $this->genre=Genre::find($route->getParameter('genero'));
+    }
 
     /**
      * Display a listing of the resource.
@@ -100,8 +115,9 @@ class GeneroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $this->genre->delete();
+        return response()->json(["mensaje"=>"borrado"]);
     }
 }
