@@ -11,20 +11,17 @@ use Cinema\Genre;
 class GeneroController extends Controller
 {
 
-    public function listing()
-    {
-        $genres=Genre::All();
-        return response()->json(
-            $genres->toArray()
-        );
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $genres = Genre::all();
+            return response()->json($genres);
+        }
         return view('genero.index');
     }
 
@@ -73,7 +70,11 @@ class GeneroController extends Controller
      */
     public function edit($id)
     {
-        //
+        $genre=Genre::find($id);
+        return response()->json(
+          $genre->toArray()
+        );
+
     }
 
     /**
@@ -85,7 +86,12 @@ class GeneroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $genre=Genre::find($id);
+        $genre->fill($request->all());
+        $genre->save();
+        return response()->json([
+           "mensaje"=>"listo"
+        ]);
     }
 
     /**
