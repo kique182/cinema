@@ -23,3 +23,4 @@ Route::resource('log','LogController');
 Route::get('logout','LogController@logout');
 Route::resource('genero','GeneroController');
 Route::resource('pelicula','MovieController');
+Route::resource('mail','MailController');
