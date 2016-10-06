@@ -28,7 +28,7 @@
                 <div class="col-md-6 contact-right">
                     {!!Form::textarea('mensaje',null,['placeholder' => 'Mensaje'])!!}
                 </div>
-                {!!Form::submit('SEND')!!}
+                {!!Form::submit('ENVIAR')!!}
                 {!!Form::close()!!}
             </div>
         </div>
